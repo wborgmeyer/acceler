@@ -24,11 +24,16 @@ activitylabels.file - factor labels the activities that the test subject perform
 
 traindata.file - The set of data that was collected to train the algorithms 
 
-trainlabels.file - The activities that were being performed as part of the training 
+trainlabels.file - The activities that were being performed as part of the training
+
+trainsubjects.file - A unique number identifying the identifyiing the individual training subjects
 
 testdata.file - The test data set that was used to verify the algorithms
 
 testlabels.file - The activities that were being performed as part of the testing
+
+testsubjects.file - A unique number identifying the identifyiing the individual test subjects
+
 
 ## Data Transformations
 
@@ -51,21 +56,25 @@ The training and test data is extracted with exactly the same procedure.
 is transformed into an ordered factor list with labels using the activity labels from the global
 data
 
-2) The measured training data is extracted from the (train|test)data.file.  
+2) The identity of the subject is extracted from the subject_(train|test).txt file
 
-3) The NA values from the (train|test)data.file are stripped using the aligndata function.
+3) The measured training data is extracted from the (train|test)data.file.  
 
-4) The mean and standard deviation values are extracted from the data using the 
+4) The NA values from the (train|test)data.file are stripped using the aligndata function.
+
+5) The mean and standard deviation values are extracted from the data using the 
 columns from the global data, step 3)
 
-4) The measured data is binded to the activities from step 1
+6) The subject number, activity, and measurements are binded into a single data frame.
 
 ## Data Merge and Summary
 
-The training and test data are merged into one data frame, merge.df.  
+1) The training and test data are merged into one data frame, merge.df.  
 
-The data values are averaged and written to the file averages.csv.  Since the "activity" column of
-the data is a factor, it is rewritten as a numeric before the average is calculated.
+2) The data values are grouped by subject and activity.  The data is averaged using the summarize function mean() for each column.
+
+3) The data are written to the file tidydata.txt
+
 
 
 
